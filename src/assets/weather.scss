@@ -1,0 +1,152 @@
+$primary:rgb(255, 0, 128);
+$none:#0089fa;
+$secondary:rgba(0, 0, 0, 0.274);
+$tertiary:rgba(0, 0, 0, 0.979);
+$dark:rgb(24, 5, 201);
+$black:rgb(255, 255, 255);
+
+body{
+    background: $secondary;
+    height: fit-content;
+    width: 800px;
+    margin: 20px auto;
+    background: $tertiary;
+}
+#main-app{
+    background: $secondary;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: open sans;
+}
+#flex{
+    display:flex;
+    justify-content: space-between;
+    margin: 20px 20px;
+    height: fit-content;
+}
+#location-info{
+    display:flex;
+    flex-direction: column;
+    align-items: end;
+    color: $black;
+    #city{
+        color: $primary;
+    }
+    #country{
+        font-weight: 400;
+        font-size:14px;
+        opacity: 0.8;
+    }
+    #time-zone{
+        font-weight: 400;
+        font-size:11px;
+        opacity: 0.5;
+    }
+}
+
+#time-date{
+    border-radius: 10px;
+    width: 200px;
+    height: fit-content;
+    padding: 5px;
+    text-align: center;
+    h2{
+        color:$primary;
+        font-weight: 400;
+        font-size:24px;
+    }
+    #time{
+        font-weight: 600;
+        letter-spacing: 2px;
+        word-spacing: 3px;
+    }
+    #date{
+        font-size: 14px;
+        color: $black;
+    }
+}
+
+#weather{
+    margin-top: 100px;
+}
+.temperature{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background: $dark;
+    color: $primary;
+    height: 150px;
+    width: 200px;
+    margin: 5px auto;
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    img{
+        position:absolute;
+        top: -40%;
+        left:-20%;
+        height: 120px;
+        width: 120px;
+    }
+    h1{
+        font-size: 50px;
+        span{
+            font-weight: 400;
+            font-size: 40px;
+            margin-left: 5px;
+        }
+    }
+}
+
+
+    
+    section{
+    color: $primary;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 100%;
+    height: fit-content;
+    margin: 20px auto;
+    padding: 20px 10px;
+    
+    .weather-info{
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        background: $dark;
+        height: 150px;
+        width: 96%;
+        margin: 5px;
+        border-radius: 10px;
+        div{
+            display: flex;
+            flex-direction: column;
+            align-items: end;
+            h2{
+                font-size: 14px;
+                font-weight: 400;
+            }
+        }
+        .weather-icons{
+            display:block;
+            height: 50px;
+        }
+    }
+}
+
+@media only screen and (max-width: 600px){
+    body{
+        width: 100%;
+    }
+    section{
+        grid-template-columns: 1fr;
+    }
+} 
