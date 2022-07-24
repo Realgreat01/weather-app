@@ -1,19 +1,21 @@
 $primary:rgb(255, 0, 128);
-$none:#0089fa;
-$secondary:rgba(0, 0, 0, 0.274);
-$tertiary:rgba(0, 0, 0, 0.979);
-$dark:rgb(24, 5, 201);
-$black:rgb(255, 255, 255);
+$secondary:#fff;
+$common:rgb(97, 97, 97);
+$tertiary:rgb(0, 255, 242);
+$background:rgba(9, 2, 48, 0.918);
+$dark:rgb(6, 1, 54);
+$black:rgb(12, 7, 31);
 
 body{
-    background: $secondary;
     height: fit-content;
     width: 800px;
     margin: 20px auto;
-    background: $tertiary;
+    background: $black;
 }
 #main-app{
-    background: $secondary;
+    background: $background;
+    border-radius: 10px;
+    padding: 10px;
 }
 
 *{
@@ -32,19 +34,18 @@ body{
     display:flex;
     flex-direction: column;
     align-items: end;
-    color: $black;
+    color: $common;
     #city{
         color: $primary;
+        opacity: 1;
     }
     #country{
         font-weight: 400;
         font-size:14px;
-        opacity: 0.8;
     }
     #time-zone{
         font-weight: 400;
         font-size:11px;
-        opacity: 0.5;
     }
 }
 
@@ -66,7 +67,7 @@ body{
     }
     #date{
         font-size: 14px;
-        color: $black;
+        color: $secondary;
     }
 }
 
@@ -74,9 +75,6 @@ body{
     margin-top: 100px;
 }
 .temperature{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
     background: $dark;
     color: $primary;
     height: 150px;
@@ -130,9 +128,19 @@ body{
             display: flex;
             flex-direction: column;
             align-items: end;
-            h2{
+            h1{
+                font-size: 30px;
+                font-weight: 700;
+            }
+            .weather-value{
                 font-size: 14px;
+                color: $tertiary;
+                font-weight: 500;
+            }
+            .weather-unit{
                 font-weight: 400;
+                font-size: 14px;
+                color: $primary;
             }
         }
         .weather-icons{

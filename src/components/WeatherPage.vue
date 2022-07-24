@@ -6,9 +6,9 @@
     <h2 id="date">{{currentDate}}</h2>
   </div>
   <div id="location-info">
-    <h2 id="city">Lagos{{cityName}}</h2>
-    <h2 id="country"> Nigeria{{country}}</h2>
-    <h2 id="time-zone">Lagos/Nigeria{{timeZone}}</h2>
+    <h2 id="city">{{cityName}}</h2>
+    <h2 id="country"> {{country}}</h2>
+    <h2 id="time-zone">{{timeZone}}</h2>
 </div>
 
 </div>
@@ -25,49 +25,49 @@
       <div class="weather-info">
         <img src="../assets/images/windy-wind-svgrepo-com.svg" alt="" class="weather-icons">
         <div>
-          <h2>Wind Speed</h2>
+          <h2 class="weather-value">Wind Speed</h2>
           <h1>{{weather.windSpeed}}</h1>
-          <h2>m/s</h2>
+          <h2 class="weather-unit">m/s</h2>
         </div>
   </div>
   <div class="weather-info">
         <img src="../assets/images/humidity.svg" alt="" class="weather-icons">
         <div>
-          <h2>Relative Humidity</h2>
+          <h2 class="weather-value">Relative Humidity</h2>
           <h1>{{weather.relHumidity}}</h1>
-          <h2>%</h2>
+          <h2 class="weather-unit">%</h2>
         </div>
   </div>
   <div class="weather-info">
         <img src="../assets/images/cloud.svg" alt="" class="weather-icons">
         <div>
-          <h2>Cloudiness</h2>
+          <h2 class="weather-value">Cloudiness</h2>
           <h1>{{weather.cloudiness}}</h1>
-          <h2>%</h2>
+          <h2 class="weather-unit">%</h2>
         </div>
   </div>
   <div class="weather-info">
         <img src="../assets/images/pressure.svg" alt="" class="weather-icons">
         <div>
-          <h2>Pressure</h2>
+          <h2 class="weather-value">Pressure</h2>
           <h1>{{weather.pressure}}</h1>
-          <h2>hPa</h2>
+          <h2 class="weather-unit">hPa</h2>
         </div>
   </div>
   <div class="weather-info">
         <img src="../assets/images/dewpoint.svg" alt="" class="weather-icons">
         <div>
-          <h2>Dew Point</h2>
+          <h2 class="weather-value">Dew Point</h2>
           <h1>{{weather.dewPoint}}</h1>
-          <h2>°C</h2>
+          <h2 class="weather-unit">°C</h2>
         </div>
   </div>
   <div class="weather-info">
         <img src="../assets/images/visibility.svg" alt="" class="weather-icons">
         <div>
-          <h2>Visibility</h2>
+          <h2 class="weather-value">Visibility</h2>
           <h1>{{(weather.visibility/1000).toFixed(2)}}</h1>
-          <h2>km</h2>
+          <h2 class="weather-unit">km</h2>
         </div>
   </div>
   </section>
@@ -77,30 +77,10 @@
 
 <script>
 
-import { store } from '../store/store.js'
 export default {
   data () {
     return {
-      currentWeather: [{
-        time: '2021-09-24T10:42+01:00',
-        symbol: 'd310',
-        symbolPhrase: 'clear',
-        temperature: 16,
-        feelsLikeTemp: 16,
-        relHumidity: 75,
-        dewPoint: 12,
-        windSpeed: 5,
-        windDirString: 'W',
-        windGust: 9,
-        precipProb: 2,
-        precipRate: 0,
-        cloudiness: 15,
-        thunderProb: 0,
-        uvIndex: 2,
-        pressure: 1016.51,
-        visibility: 36143
-      }],
-      locationInfo: [],
+      currentWeather: [],
       timeNow: new Date(),
       currentDate: '',
       currentTime: '',
@@ -109,13 +89,12 @@ export default {
       timeZone: '',
       country: '',
 
-      store,
       cityID: parseInt(localStorage.getItem('cityID')),
       options: {
         method: 'GET',
         headers: {
-          'X-RapidAPI-Key': 'cd05a6f87amsh21b3f67eede30aep17ac4ejsn1fe376082b4e',
-          'X-RapidAPI-Host': 'foreca-weather.p.rapidapi.com'
+          'X-RapidAPI-Key': process.env.VUE_APP_FORECA_API_KEY,
+          'X-RapidAPI-Host': process.env.VUE_APP_FORECA_API_HOST
         }
       }
     }
@@ -126,15 +105,16 @@ export default {
       const response = await fetch(`https://foreca-weather.p.rapidapi.com/current/${this.cityID}`, this.options)
       const data = await response.json()
       this.currentWeather = data
-      // const { current } = data
-      // const { time } = current
+      const { current } = data
+      const { time } = current
+      this.timeNow = new Date(time)
+      console.log(this.timeNow)
       return this.currentWeather
     },
     async getLocationData () {
       const response = await fetch(`https://foreca-weather.p.rapidapi.com/location/${this.cityID}`, this.options)
       const data = await response.json()
       const { name, country, timezone } = data
-      console.log(data)
       this.cityName = name
       this.country = country
       this.timeZone = timezone
@@ -142,11 +122,12 @@ export default {
     }
   },
   created () {
-    // setInterval(() => this.getWeatherData(), 1000)
-    // this.getWeatherData()
+    this.getWeatherData()
     this.getLocationData()
-    this.currentDate = this.timeNow.toDateString()
-    this.currentTime = this.timeNow.toLocaleTimeString()
+    setTimeout(() => {
+      this.currentDate = this.timeNow.toDateString()
+      this.currentTime = this.timeNow.toLocaleTimeString()
+    }, 2000)
   }
 }
 </script>
