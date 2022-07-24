@@ -2,13 +2,11 @@
 <div id="main-app">
   <div id="flex">
   <div id="time-date">
-    <h2 id="time">{{currentTime}}</h2>
-    <h2 id="date">{{currentDate}}</h2>
+    <h2 id="time-zone">{{timeZone}}</h2>
   </div>
   <div id="location-info">
     <h2 id="city">{{cityName}}</h2>
     <h2 id="country"> {{country}}</h2>
-    <h2 id="time-zone">{{timeZone}}</h2>
 </div>
 
 </div>
@@ -76,14 +74,10 @@
 </template>
 
 <script>
-
 export default {
   data () {
     return {
       currentWeather: [],
-      timeNow: new Date(),
-      currentDate: '',
-      currentTime: '',
 
       cityName: '',
       timeZone: '',
@@ -105,10 +99,6 @@ export default {
       const response = await fetch(`https://foreca-weather.p.rapidapi.com/current/${this.cityID}`, this.options)
       const data = await response.json()
       this.currentWeather = data
-      const { current } = data
-      const { time } = current
-      this.timeNow = new Date(time)
-      console.log(this.timeNow)
       return this.currentWeather
     },
     async getLocationData () {
@@ -124,10 +114,6 @@ export default {
   created () {
     this.getWeatherData()
     this.getLocationData()
-    setTimeout(() => {
-      this.currentDate = this.timeNow.toDateString()
-      this.currentTime = this.timeNow.toLocaleTimeString()
-    }, 2000)
   }
 }
 </script>

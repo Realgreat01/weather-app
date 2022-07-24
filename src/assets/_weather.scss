@@ -3,6 +3,7 @@
 #flex{
     display:flex;
     justify-content: space-between;
+    align-items: start;
     margin: 20px 20px;
     height: fit-content;
 }
@@ -26,24 +27,13 @@
 }
 
 #time-date{
-    border-radius: 10px;
-    width: 200px;
-    height: fit-content;
-    padding: 5px;
-    text-align: center;
+   
     h2{
         color:$primary;
-        font-weight: 400;
-        font-size:24px;
-    }
-    #time{
-        font-weight: 600;
-        letter-spacing: 2px;
-        word-spacing: 3px;
-    }
-    #date{
-        font-size: 14px;
-        color: $secondary;
+        font-weight: 500;
+        font-size:14px;
+        height: fit-content;
+        margin-top: 5px;
     }
 }
 
@@ -54,7 +44,7 @@
     background: $dark;
     color: $primary;
     height: 150px;
-    width: 200px;
+    width: 300px;
     margin: 5px auto;
     border-radius: 10px;
     position: relative;
@@ -63,6 +53,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    @media (max-width: 600px){
+        width: 250px;
+    }
     img{
         position:absolute;
         top: -40%;
