@@ -1,8 +1,9 @@
 <template>
-    <router-view/>
+    <div id="main-app">
+      <router-view/>
+    </div>
 </template>
-<script>
-</script>
+
 <style lang="scss">
-@import './assets/weather.scss';
+@import './assets/main.scss';
 </style>

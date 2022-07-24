@@ -1,42 +1,27 @@
+@import './variables';
+@import './home';
+@import './weather';
+
+body{
+    height: fit-content;
+    max-width: 800px;
+    min-height: 100vh;
+    margin: 0 auto;
+    background: $black;
+    object-fit: cover;
+}
+
 *{
-  margin:0;
-  padding:0;
-  box-sizing: border-box;
-  font-family: open sans;
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    font-family: open sans;
 }
-#app-name{
-  color: #fff;
-  margin: 20px auto;
-  width: fit-content;
+#app{
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 10px;
 }
-#user-info{
-  margin-top: 100px;
-  input{
-    display: block;
-    color: rgb(11, 1, 104);
-    background: #fff;
-    border-radius: 5px;
-    border: none;
-    outline: none;
-    padding: 5px 10px;
-    margin: 4px auto;
-    width: 300px;
-    height: 50px;
-    font-size: 20px;
-  }
-}
-
-button{
-  color: #fff;
-  border: none;
-  background: blue;
-  padding: 10px;
-  display: block;
-  margin: 20px auto;
-  border-radius: 5px;
-  font-size: 16px;
-}
-
-h1{
-  color:#fff;
-}
+// #main-app{
+//     background: red;
+// }

@@ -1,17 +1,26 @@
 <template>
-  <h1 id="app-name">Verix Weather App</h1>
+  <h1 id="app-name">Weather App</h1>
   <div id="user-info">
-      <input type="text" v-model.lazy="city" placeholder="Enter city name">
-      <input type="text" @keyup.enter="getCountryCode()" v-model.lazy="country" placeholder="Enter country short name">
+    <div>
+      <label for="city">City Name</label>
+      <input type="text" id="city" v-model.lazy="city" placeholder="Enter city name">
+    </div>
+  <div>
+      <label for="alpha-code">Country Code</label>
+      <input type="text" id="alpha-code" v-model.lazy="alphaCode" placeholder="Enter alpha-2-code">
+    </div>
   </div>
 
-  <button id="getLocationInfo" @click="getCurrentLocation()">Get Location</button>
+  <button id="getLocationInfo" @click="getCurrentLocation()">Check Weather</button>
 
-  <div v-if="countryCode">
-    <h1>invalid Country Code or City</h1>
+  <div v-if="countryCode" class="no-result">
+    <img src="https://i.gifer.com/F4kC.gif" alt="">
+    <h1>Invalid country or city</h1>
+    <h2><a href="https://www.iban.com/country-codes">get country code ↗ </a> </h2>
   </div>
-  <div v-if="notFound">
-    <h1>Oops We are not able to get a result</h1>
+  <div v-if="notFound" class="no-result">
+    <img src="https://i.gifer.com/GviB.gif" alt="">
+    <h1>Oops!  &nbsp; We are not able to get a result.</h1>
   </div>
 
 </template>
@@ -26,7 +35,6 @@ export default {
       countryCode: false,
 
       city: '',
-      country: '',
       alphaCode: '',
 
       forecaOptions: {
@@ -34,13 +42,6 @@ export default {
         headers: {
           'X-RapidAPI-Key': process.env.VUE_APP_FORECA_API_KEY,
           'X-RapidAPI-Host': process.env.VUE_APP_FORECA_API_HOST
-        }
-      },
-      codesOfCountryOptions: {
-        method: 'GET',
-        headers: {
-          'X-RapidAPI-Key': process.env.VUE_APP_COUNTRY_CODE_KEY,
-          'X-RapidAPI-Host': process.env.VUE_APP_COUNTRY_CODE_HOST
         }
       }
     }
@@ -61,28 +62,16 @@ export default {
           this.$router.push('/weather')
           return this.id
         } else {
-          this.countryCode = true
-          this.notFound = false
+          setTimeout(
+            this.countryCode = true,
+            this.notFound = false
+            , 2000)
         }
       } catch {
-        this.countryCode = false
-        this.notFound = true
-      }
-    },
-    async getCountryCode () {
-      try {
-        const response = await fetch(`https://codesofcountry.p.rapidapi.com/query/${this.country}`, this.codesOfCountryOptions)
-        const data = await response.json()
-        const { result } = data
-        // eslint-disable-next-line camelcase
-        const { iso_alpha_two } = result[0]
-        // eslint-disable-next-line camelcase
-        const alphaCode = iso_alpha_two.toLowerCase()
-        this.alphaCode = alphaCode
-        console.log(this.alphaCode.length)
-        return this.alphaCode
-      } catch {
-        this.countryCode = true
+        setTimeout(
+          this.countryCode = false,
+          this.notFound = true
+          , 2000)
       }
     }
   }
@@ -90,5 +79,4 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '../assets/main.scss';
 </style>

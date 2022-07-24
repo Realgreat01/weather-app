@@ -1,0 +1,102 @@
+@import 'variables';
+
+  #app-name{
+    color: #fff;
+    margin: 20px auto;
+    width: fit-content;
+    border-radius: 10px;
+    padding: 10px;
+  }
+  #user-info{
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    width: fit-content;
+    margin-top: 100px;
+    div{
+      display: grid;
+      grid-template-columns: 1fr 3fr;
+      align-items: center;
+      margin-top: 10px;
+      max-width: 420px;
+      height: 50px;
+      background: #fff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      label{
+        font-size: 14px;
+        font-weight: 600;
+      }
+      input{
+        display: block;
+        color: rgb(11, 1, 104);
+        background: rgb(226, 226, 226);
+        border-radius: 5px;
+        border: none;
+        outline: none;
+        padding: 5px ;
+        margin: 4px auto;
+        margin-left: 10px;
+        width: 100%;
+        font-size: 16px;
+        @media (max-width: 600px) {
+          width: 100%;
+          margin-left: 4px;
+        }
+      }
+    }
+  }
+  
+  button{
+    color: #fff;
+    border: none;
+    background: rgba(3, 3, 248, 0.678);
+    padding: 10px;
+    display: block;
+    margin: 20px auto;
+    border-radius: 5px;
+    font-size: 16px;
+  }
+  
+  h1{
+    color:#fff;
+  }
+
+  .no-result{
+    max-width: 400px;
+    margin:0 auto;
+    overflow:hidden;
+    position: relative;
+    img{
+      border-radius: 10px;
+      width: 400px;
+      display:block;
+      margin: 0 auto;
+      max-height: 400px;
+    }
+    h1,h2{
+      color: $common;
+      font-size: 14px;
+      color: $secondary;
+      font-weight: 500;
+      position: absolute;
+      background: rgb(36, 35, 35);
+      width: 200px;
+      left: 50%;
+      top: 15%;
+      padding: 5px;
+      text-align: center;
+      border-radius: 5px;
+      transform: translate(-50%, -50%);
+      transition: 2s;
+    }
+    h2{
+      top: 25%;
+      background:rgb(7, 2, 85);
+      a{
+        text-decoration: none;
+        color:#fff;
+        font-size: 11px;
+      }
+    }
+  }
