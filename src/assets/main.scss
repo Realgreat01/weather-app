@@ -3,7 +3,6 @@
 @import './weather';
 
 body{
-    height: fit-content;
     max-width: 800px;
     min-height: 100vh;
     margin: 0 auto;
@@ -18,9 +17,10 @@ body{
     font-family: open sans;
 }
 #app{
-    max-width: 600px;
+    max-width: 800px;
     margin: 0 auto;
     padding: 0 10px;
+    min-height: 100vh;
 }
 // #main-app{
 //     background: red;

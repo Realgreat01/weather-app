@@ -4,14 +4,32 @@
     display:flex;
     justify-content: space-between;
     align-items: start;
-    margin: 20px 20px;
+    margin: 20px;
     height: fit-content;
+    img{
+        display: block;
+        width: 200px;
+        margin: 10px 0;
+        @media (max-width:600px){
+            width: 120px;
+        }
+    }
+    button{
+        background: $primary;
+        color: #fff;
+        border: none;
+        padding: 10px;
+        display: block;
+        margin: 10px 0;
+        border-radius: 5px;
+        font-size: 11px;
+    }
 }
 #location-info{
     display:flex;
     flex-direction: column;
     align-items: end;
-    color: $common;
+    color: $secondary;
     #city{
         color: $primary;
         opacity: 1;
@@ -19,21 +37,6 @@
     #country{
         font-weight: 400;
         font-size:14px;
-    }
-    #time-zone{
-        font-weight: 400;
-        font-size:11px;
-    }
-}
-
-#time-date{
-   
-    h2{
-        color:$primary;
-        font-weight: 500;
-        font-size:14px;
-        height: fit-content;
-        margin-top: 5px;
     }
 }
 

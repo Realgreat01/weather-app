@@ -1,78 +1,86 @@
 <template>
-  <h1 id="app-name">Weather App</h1>
+ <div id="home" v-if="home">
+   <img src="../assets/images/logo.svg" alt="" id="logo">
   <div id="user-info">
     <div>
-      <label for="city">City Name</label>
-      <input type="text" id="city" v-model.lazy="city" placeholder="Enter city name">
-    </div>
-  <div>
-      <label for="alpha-code">Country Code</label>
-      <input type="text" id="alpha-code" v-model.lazy="alphaCode" placeholder="Enter alpha-2-code">
+      <input type="text" id="city" v-model.lazy="cityName" placeholder="Enter city name">
     </div>
   </div>
 
   <button id="getLocationInfo" @click="getCurrentLocation()">Check Weather</button>
 
-  <div v-if="countryCode" class="no-result">
-    <img src="https://i.gifer.com/F4kC.gif" alt="">
-    <h1>Invalid country or city</h1>
-    <h2><a href="https://www.iban.com/country-codes">get country code ↗ </a> </h2>
-  </div>
   <div v-if="notFound" class="no-result">
     <img src="https://i.gifer.com/GviB.gif" alt="">
     <h1>Oops!  &nbsp; We are not able to get a result.</h1>
   </div>
-
+ </div>
+ <template v-if="weatherPage">
+  <WeatherPage @changeLocation = changeLocation() />
+ </template>
 </template>
 
 <script>
+import WeatherPage from '@/components/WeatherPage.vue'
 
 export default {
   name: 'HomePage',
   data () {
     return {
       notFound: false,
-      countryCode: false,
+      home: true,
+      weatherPage: false,
 
-      city: '',
+      cityName: '',
       alphaCode: '',
 
-      forecaOptions: {
+      openWeatherOptions: {
         method: 'GET',
         headers: {
-          'X-RapidAPI-Key': process.env.VUE_APP_FORECA_API_KEY,
-          'X-RapidAPI-Host': process.env.VUE_APP_FORECA_API_HOST
+          'X-RapidAPI-Key': process.env.VUE_APP_OPEN_WEATHER_API_KEY,
+          'X-RapidAPI-Host': process.env.VUE_APP_OPEN_WEATHER_API_HOST
         }
       }
     }
   },
 
+  components: {
+    WeatherPage
+  },
+  $emits: ['changeLocation'],
   methods: {
     async getCurrentLocation () {
       try {
-        if (this.alphaCode.length === 2) {
-          const response = await fetch(`https://foreca-weather.p.rapidapi.com/location/search/${this.city}?lang=en&country=${this.alphaCode}`, this.forecaOptions)
+        if (this.cityName.length >= 3) {
+          const response = await fetch(`https://community-open-weather-map.p.rapidapi.com/weather?q=${this.cityName}&units=metric`, this.openWeatherOptions)
           const data = await response.json()
-          const { locations } = data
-          const { id } = locations[0]
-          this.id = id
-          this.countryCode = false
-          this.notFound = false
-          localStorage.setItem('cityID', this.id)
-          this.$router.push('/weather')
-          return this.id
+          console.log(data.cod)
+          localStorage.setItem('cityName', data.name)
+          if (data.cod === 200) {
+            this.home = false
+            this.weatherPage = true
+          } else {
+            this.notFound = true
+            this.home = true
+            this.weatherPage = false
+          }
+          return data
         } else {
-          setTimeout(
-            this.countryCode = true,
-            this.notFound = false
-            , 2000)
-        }
-      } catch {
-        setTimeout(
-          this.countryCode = false,
           this.notFound = true
-          , 2000)
+          this.home = true
+          this.weatherPage = false
+        }
+      } catch (error) {
+        this.notFound = true
+        this.home = true
+        this.weatherPage = false
+        console.log(error)
       }
+    },
+    changeLocation () {
+      this.home = true
+      this.weatherPage = false
+      this.notFound = false
+      this.cityName = ''
     }
   }
 }
