@@ -23,6 +23,14 @@
         margin: 10px 0;
         border-radius: 5px;
         font-size: 11px;
+        &:hover{
+        cursor : pointer;
+        background:rgb(25, 0, 255);
+        }
+        &:focus{
+        transform: scale(0.8);
+        background:rgb(4, 123, 153);
+        }
     }
 }
 #location-info{

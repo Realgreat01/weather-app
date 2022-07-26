@@ -104,3 +104,12 @@
       }
     }
   }
+
+button:hover{
+    cursor : pointer;
+    background:rgb(25, 0, 255);
+  }
+  button:focus{
+    transform: scale(0.8);
+    background:rgb(4, 123, 153);
+  }
