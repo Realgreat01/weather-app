@@ -78,19 +78,12 @@ export default {
     return {
       weather: {},
 
-      cityName: localStorage.getItem('cityName'),
-      openWeatherOptions: {
-        method: 'GET',
-        headers: {
-          'X-RapidAPI-Key': process.env.VUE_APP_OPEN_WEATHER_API_KEY,
-          'X-RapidAPI-Host': process.env.VUE_APP_OPEN_WEATHER_API_HOST
-        }
-      }
+      cityName: localStorage.getItem('cityName')
     }
   },
   methods: {
     async getWeatherData () {
-      const response = await fetch(`https://community-open-weather-map.p.rapidapi.com/weather?q=${this.cityName}&units=metric`, this.openWeatherOptions)
+      const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${this.cityName}&appid=${process.env.VUE_APP_OPEN_WEATHER_API_KEY}&units=metric`)
       const data = await response.json()
       console.log(data)
       this.weather = data

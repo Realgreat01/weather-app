@@ -51,9 +51,9 @@ export default {
     async getCurrentLocation () {
       try {
         if (this.cityName.length >= 3) {
-          const response = await fetch(`https://community-open-weather-map.p.rapidapi.com/weather?q=${this.cityName}&units=metric`, this.openWeatherOptions)
+          const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${this.cityName}&appid=${process.env.VUE_APP_OPEN_WEATHER_API_KEY}`)
           const data = await response.json()
-          console.log(data.cod)
+          console.log(data)
           localStorage.setItem('cityName', data.name)
           if (data.cod === 200) {
             this.home = false
